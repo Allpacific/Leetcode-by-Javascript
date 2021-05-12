@@ -27,14 +27,26 @@
     return max
 }; */
 
+/* 
+    双指针法
+*/
 var maxArea = function(height) {
+    if(!height || height.length <= 1) return 0
+
+    let leftPos = 0
+    let rightPos = height.length - 1
     let max = 0
-    for(i=0; i<height.length; i++) {
-        for(j=i+1; j<height.length; j++) {
-            let res = Math.abs(i - j) * Math.min(height[i], height[j])
-            if(res > max) {
-                max = res
-            }
+    while(leftPos < rightPos) {
+        let area = Math.abs(leftPos - rightPos) * Math.min(height[leftPos], height[rightPos])
+
+        if(area > max) {
+            max = area
+        }
+
+        if(height[leftPos] < height[rightPos]) {
+            leftPos++
+        }else {
+            rightPos--
         }
     }
 
